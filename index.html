@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>3D Logo</title>
 
-  <!-- model-viewer -->
+  <!-- model-viewer (stable) -->
   <script type="module"
     src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
@@ -22,7 +22,7 @@
     model-viewer {
       width: 100%;
       height: 100%;
-      background: transparent;
+      background-color: transparent;
       --poster-color: transparent;
     }
   </style>
@@ -33,19 +33,19 @@
   src="./logo.glb"
 
   auto-rotate
-  rotation-per-second="10deg"
-  auto-rotate-delay="800"
+  rotation-per-second="14deg"
+  auto-rotate-delay="1000"
 
   camera-controls
   interaction-prompt="none"
 
-  exposure="1.6"
-  shadow-intensity="0.08"
-  shadow-softness="0.8"
+  exposure="1.35"
+  shadow-intensity="0.12"
+  shadow-softness="0.6"
 
-  tone-mapping="aces"
+  tone-mapping="neutral"
 
-  environment-image="https://modelviewer.dev/shared-assets/environments/venice_sunset_1k.hdr"
+  environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
 
   style="background-color: transparent;">
 </model-viewer>
