@@ -45,7 +45,7 @@
   renderer.setPixelRatio(window.devicePixelRatio);
   document.body.appendChild(renderer.domElement);
 
-  // Lights (logo için temiz setup)
+  // Lights
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
   keyLight.position.set(2, 2, 4);
 
@@ -56,15 +56,14 @@
 
   scene.add(keyLight, fillLight, ambientLight);
 
-  // Load GLB
-  const loader = new GLTFLoader();
+  // Load GLB (DOĞRU KULLANIM)
+  const loader = new THREE.GLTFLoader();
   loader.load(
     './pilloww.glb',
     function (gltf) {
       const model = gltf.scene;
       scene.add(model);
 
-      // Yavaş, premium dönüş
       function animate() {
         requestAnimationFrame(animate);
         model.rotation.y += 0.003;
