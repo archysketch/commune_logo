@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Logo</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<script type="module">
+  import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+  import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
+
+  // Scene
+  const scene = new THREE.Scene();
+
+  // Camera
+  const camera = new THREE.PerspectiveCamera(
+    35,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    100
+  );
+  camera.position.set(0, 0, 4);
+
+  // Renderer
+  const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true
+  });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  document.body.appendChild(renderer.domElement);
+
+  // Lights (logo için ideal setup)
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+  keyLight.position.set(2, 2, 4);
+
+  const fillLight = new THREE.DirectionalLight(0xffffff, 0.6);
+  fillLight.position.set(-2, -1, 2);
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+
+  scene.add(keyLight, fillLight, ambientLight);
+
+  // Load model
+  const loader = new GLTFLoader();
+  loader.load('./pillow.glb', (gltf) => {
+    const model = gltf.scene;
+    model.scale.set(1, 1, 1);
+    scene.add(model);
+
+    // subtle auto-rotation
+    function animate() {
+      requestAnimationFrame(animate);
+      model.rotation.y += 0.003;
+      renderer.render(scene, camera);
+    }
+    animate();
+  });
+
+  // Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+
+</body>
+</html>
