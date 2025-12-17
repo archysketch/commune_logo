@@ -19,13 +19,15 @@
 </head>
 <body>
 
-<!-- THREE.JS -->
+<!-- THREE.JS (classic, stabil) -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
 
 <script>
+  // Scene
   const scene = new THREE.Scene();
 
+  // Camera
   const camera = new THREE.PerspectiveCamera(
     35,
     window.innerWidth / window.innerHeight,
@@ -34,6 +36,7 @@
   );
   camera.position.set(0, 0, 4);
 
+  // Renderer
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true
@@ -42,7 +45,7 @@
   renderer.setPixelRatio(window.devicePixelRatio);
   document.body.appendChild(renderer.domElement);
 
-  // Lights
+  // Lights (logo için temiz setup)
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
   keyLight.position.set(2, 2, 4);
 
@@ -54,13 +57,14 @@
   scene.add(keyLight, fillLight, ambientLight);
 
   // Load GLB
-  const loader = new THREE.GLTFLoader();
+  const loader = new GLTFLoader();
   loader.load(
     './pilloww.glb',
     function (gltf) {
       const model = gltf.scene;
       scene.add(model);
 
+      // Yavaş, premium dönüş
       function animate() {
         requestAnimationFrame(animate);
         model.rotation.y += 0.003;
@@ -74,6 +78,7 @@
     }
   );
 
+  // Resize
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
