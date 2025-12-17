@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>3D Logo</title>
 
-  <!-- model-viewer -->
   <script type="module"
     src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
@@ -23,14 +22,11 @@
       position: fixed;
       top: 16px;
       left: 16px;
-
       width: 90px;
       height: 90px;
-
       background-color: transparent;
       --poster-color: transparent;
-
-      pointer-events: none; /* Bubble tıklamaları serbest */
+      pointer-events: none;
     }
   </style>
 </head>
@@ -40,36 +36,37 @@
   id="logo"
   src="./logoglass.glb"
 
+  reveal="manual"
   auto-rotate
   rotation-per-second="10deg"
   auto-rotate-delay="0"
 
   interaction-prompt="none"
-
   exposure="1.35"
   shadow-intensity="0.12"
   shadow-softness="0.6"
-
   tone-mapping="neutral"
 
   environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
-
   camera-orbit="0deg 75deg 2.6m">
 </model-viewer>
 
 <script>
   const viewer = document.getElementById('logo');
+
+  viewer.addEventListener('load', () => {
+    viewer.reveal();
+  });
+
   let baseAngle = 0;
 
   window.addEventListener('mousemove', (e) => {
     const x = (e.clientX / window.innerWidth) - 0.5;
-
-    const maxOffset = 45; // belirgin ama premium
+    const maxOffset = 45;
     const angle = baseAngle - x * maxOffset;
-
     viewer.cameraOrbit = `${angle}deg 75deg 2.6m`;
   });
 </script>
-  
+
 </body>
 </html>
