@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>3D Logo</title>
   <style>
     html, body {
@@ -19,14 +19,13 @@
 </head>
 <body>
 
-<script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
+<!-- THREE.JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
 
-  // Scene
+<script>
   const scene = new THREE.Scene();
 
-  // Camera
   const camera = new THREE.PerspectiveCamera(
     35,
     window.innerWidth / window.innerHeight,
@@ -35,7 +34,6 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/
   );
   camera.position.set(0, 0, 4);
 
-  // Renderer
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true
@@ -44,7 +42,7 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/
   renderer.setPixelRatio(window.devicePixelRatio);
   document.body.appendChild(renderer.domElement);
 
-  // Lights (logo için ideal setup)
+  // Lights
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
   keyLight.position.set(2, 2, 4);
 
@@ -55,23 +53,27 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.158.0/examples/
 
   scene.add(keyLight, fillLight, ambientLight);
 
-  // Load model
-  const loader = new GLTFLoader();
-  loader.load('./pilloww.glb', (gltf) => {
-    const model = gltf.scene;
-    model.scale.set(1, 1, 1);
-    scene.add(model);
+  // Load GLB
+  const loader = new THREE.GLTFLoader();
+  loader.load(
+    './pilloww.glb',
+    function (gltf) {
+      const model = gltf.scene;
+      scene.add(model);
 
-    // subtle auto-rotation
-    function animate() {
-      requestAnimationFrame(animate);
-      model.rotation.y += 0.003;
-      renderer.render(scene, camera);
+      function animate() {
+        requestAnimationFrame(animate);
+        model.rotation.y += 0.003;
+        renderer.render(scene, camera);
+      }
+      animate();
+    },
+    undefined,
+    function (error) {
+      console.error('GLB LOAD ERROR:', error);
     }
-    animate();
-  });
+  );
 
-  // Resize
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
