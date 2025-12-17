@@ -60,13 +60,14 @@
 <script>
   const viewer = document.getElementById('logo');
   let baseAngle = 0;
+  const maxOffset = 45; // etki gücü
 
-  window.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth) - 0.5;
+  window.addEventListener('message', (event) => {
+    if (!event.data || event.data.type !== 'LOGO_MOUSE_X') return;
 
-    const maxOffset = 45; // belirgin ama premium
+    const x = event.data.x;
+
     const angle = baseAngle - x * maxOffset;
-
     viewer.cameraOrbit = `${angle}deg 75deg 2.6m`;
   });
 </script>
