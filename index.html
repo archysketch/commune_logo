@@ -57,7 +57,7 @@
 
   // Load model
   const loader = new GLTFLoader();
-  loader.load('./pillow.glb', (gltf) => {
+  loader.load('./logo.glb', (gltf) => {
     const model = gltf.scene;
     model.scale.set(1, 1, 1);
     scene.add(model);
