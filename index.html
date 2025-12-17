@@ -28,6 +28,10 @@
       --poster-color: transparent;
       pointer-events: none;
     }
+
+    model-viewer::part(progress-bar) {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -35,29 +39,20 @@
 <model-viewer
   id="logo"
   src="./logoglass.glb"
-
-  reveal="manual"
   auto-rotate
   rotation-per-second="10deg"
   auto-rotate-delay="0"
-
   interaction-prompt="none"
   exposure="1.35"
   shadow-intensity="0.12"
   shadow-softness="0.6"
   tone-mapping="neutral"
-
   environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
   camera-orbit="0deg 75deg 2.6m">
 </model-viewer>
 
 <script>
   const viewer = document.getElementById('logo');
-
-  viewer.addEventListener('load', () => {
-    viewer.reveal();
-  });
-
   let baseAngle = 0;
 
   window.addEventListener('mousemove', (e) => {
