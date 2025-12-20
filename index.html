@@ -18,15 +18,13 @@
       overflow: hidden;
     }
 
-    /* Büyük ama görünmez viewport */
     model-viewer {
       position: fixed;
-      top: -70px;
-      left: -70px;
-      width: 200px;
-      height: 200px;
+      top: 16px;
+      left: 16px;
+      width: 60px;
+      height: 60px;
       background: transparent;
-      --poster-color: transparent;
       pointer-events: none;
     }
 
@@ -40,30 +38,37 @@
 <model-viewer
   id="logo"
   src="./communemonocrome.glb"
+
   auto-rotate
   rotation-per-second="10deg"
   auto-rotate-delay="0"
+
   interaction-prompt="none"
+  disable-zoom
+
   exposure="1.35"
   shadow-intensity="0.12"
   shadow-softness="0.6"
   tone-mapping="neutral"
+
   environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
-  camera-orbit="0deg 75deg 3.2m"
-  min-camera-orbit="-180deg 75deg 3.2m"
-  max-camera-orbit="180deg 75deg 3.2m"
-  field-of-view="45deg">
+
+  camera-orbit="0deg 75deg 2.6m"
+  min-camera-orbit="-180deg 75deg 2.6m"
+  max-camera-orbit="180deg 75deg 2.6m"
+
+  camera-target="0m 0m 0m"
+
+  scale="0.55 0.55 0.55">
 </model-viewer>
 
 <script>
   const viewer = document.getElementById('logo');
-  let baseAngle = 0;
 
   window.addEventListener('mousemove', (e) => {
     const x = (e.clientX / window.innerWidth) - 0.5;
-    const maxOffset = 45;
-    const angle = baseAngle - x * maxOffset;
-    viewer.cameraOrbit = `${angle}deg 75deg 3.2m`;
+    const angle = -x * 40;
+    viewer.cameraOrbit = `${angle}deg 75deg 2.6m`;
   });
 </script>
 
