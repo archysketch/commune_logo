@@ -18,13 +18,14 @@
       overflow: hidden;
     }
 
+    /* Büyük ama görünmez viewport */
     model-viewer {
       position: fixed;
-      top: 16px;
-      left: 16px;
-      width: 60px;
-      height: 60px;
-      background-color: transparent;
+      top: -70px;
+      left: -70px;
+      width: 200px;
+      height: 200px;
+      background: transparent;
       --poster-color: transparent;
       pointer-events: none;
     }
@@ -48,7 +49,10 @@
   shadow-softness="0.6"
   tone-mapping="neutral"
   environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
-  camera-orbit="0deg 75deg 2.6m">
+  camera-orbit="0deg 75deg 3.2m"
+  min-camera-orbit="-180deg 75deg 3.2m"
+  max-camera-orbit="180deg 75deg 3.2m"
+  field-of-view="45deg">
 </model-viewer>
 
 <script>
@@ -59,7 +63,7 @@
     const x = (e.clientX / window.innerWidth) - 0.5;
     const maxOffset = 45;
     const angle = baseAngle - x * maxOffset;
-    viewer.cameraOrbit = `${angle}deg 75deg 2.6m`;
+    viewer.cameraOrbit = `${angle}deg 75deg 3.2m`;
   });
 </script>
 
